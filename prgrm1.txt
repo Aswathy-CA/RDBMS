@@ -1,0 +1,100 @@
+SQL> create table employee(empno number,ename varchar2(10),job varchar2(10),mgr number,sal number);
+
+Table created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(10)
+ MGR                                                NUMBER
+ SAL                                                NUMBER
+
+SQL> alter table employee add(commission number);
+
+Table altered.
+
+SQL> insert into employee values(&empno,'&ename','&job',&mgr,&sal,'&commission');
+Enter value for empno: 101
+Enter value for ename: abhi
+Enter value for job:  manager
+Enter value for mgr: 1234
+Enter value for sal: 10000
+Enter value for commission: 70
+old   1: insert into employee values(&empno,'&ename','&job',&mgr,&sal,'&commission')
+new   1: insert into employee values(101,'abhi',' manager',1234,10000,'70')
+
+1 row created.
+
+SQL> /
+Enter value for empno: 102
+Enter value for ename: rohith
+Enter value for job: analyst
+Enter value for mgr: 2345
+Enter value for sal: 9000
+Enter value for commission: 65
+old   1: insert into employee values(&empno,'&ename','&job',&mgr,&sal,'&commission')
+new   1: insert into employee values(102,'rohith','analyst',2345,9000,'65')
+
+1 row created.
+
+
+SQL> /
+Enter value for empno: 103
+Enter value for ename: david
+Enter value for job: analyst
+Enter value for mgr: 3456
+Enter value for sal: 9000
+Enter value for commission: 65
+old   1: insert into employee values(&empno,'&ename','&job',&mgr,&sal,'&commission')
+new   1: insert into employee values(103,'david','analyst',3456,9000,'65')
+
+1 row created.
+
+SQL> /
+Enter value for empno: 104
+Enter value for ename: rahul
+Enter value for job: clerk
+Enter value for mgr: 4567
+Enter value for sal: 7000
+Enter value for commission: 55
+old   1: insert into employee values(&empno,'&ename','&job',&mgr,&sal,'&commission')
+new   1: insert into employee values(104,'rahul','clerk',4567,7000,'55')
+
+1 row created.
+
+SQL> /
+Enter value for empno: 105
+Enter value for ename: pramod
+Enter value for job: salesman
+Enter value for mgr: 5678
+Enter value for sal: 5000
+Enter value for commission: 50
+old   1: insert into employee values(&empno,'&ename','&job',&mgr,&sal,'&commission')
+new   1: insert into employee values(105,'pramod','salesman',5678,5000,'50')
+
+1 row created.
+
+SQL> select * from employee;
+
+     EMPNO ENAME      JOB               MGR        SAL COMMISSION
+---------- ---------- ---------- ---------- ---------- ----------
+       101 abhi        manager         1234      10000         70
+       102 rohith     analyst          2345       9000         65
+       103 david      analyst          3456       9000         65
+       104 rahul      clerk            4567       7000         55
+       105 pramod     salesman         5678       5000         50
+
+SQL> delete employee where empno=105;
+
+1 row deleted.
+
+SQL> select * from employee;
+
+     EMPNO ENAME      JOB               MGR        SAL COMMISSION
+---------- ---------- ---------- ---------- ---------- ----------
+       101 abhi        manager         1234      10000         70
+       102 rohith     analyst          2345       9000         65
+       103 david      analyst          3456       9000         65
+       104 rahul      clerk            4567       7000         55
