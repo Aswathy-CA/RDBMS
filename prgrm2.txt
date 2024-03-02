@@ -1,0 +1,121 @@
+SQL> create table department(deptno number,deptname varchar2(10),location varchar2(10));
+
+Table created.
+
+SQL>  desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                             NUMBER
+ DEPTNAME                                           VARCHAR2(10)
+ LOCATION                                           VARCHAR2(10)
+
+SQL> alter table department add(designation varchar2(10));
+
+Table altered.
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                             NUMBER
+ DEPTNAME                                           VARCHAR2(10)
+ LOCATION                                           VARCHAR2(10)
+ DESIGNATION                                        VARCHAR2(10)
+
+
+SQL>  insert into department values(&deptno,'&deptname','&location','&designation');
+Enter value for deptno: 9
+Enter value for deptname: accounting
+Enter value for location: hyderabad
+Enter value for designation: manager
+old   1:  insert into department values(&deptno,'&deptname','&location','&designation')
+new   1:  insert into department values(9,'accounting','hyderabad','manager')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 10
+Enter value for deptname: research
+Enter value for location: chennai
+Enter value for designation: professor
+old   1:  insert into department values(&deptno,'&deptname','&location','&designation')
+new   1:  insert into department values(10,'research','chennai','professor')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 11
+Enter value for deptname: sales
+Enter value for location: banglore
+Enter value for designation: salesman
+old   1:  insert into department values(&deptno,'&deptname','&location','&designation')
+new   1:  insert into department values(11,'sales','banglore','salesman')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 12
+Enter value for deptname: operations
+Enter value for location: mumbai
+Enter value for designation: operator
+old   1:  insert into department values(&deptno,'&deptname','&location','&designation')
+new   1:  insert into department values(12,'operations','mumbai','operator')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 9
+Enter value for deptname: accounting
+Enter value for location: chennai
+Enter value for designation: manager
+old   1:  insert into department values(&deptno,'&deptname','&location','&designation')
+new   1:  insert into department values(9,'accounting','chennai','manager')
+
+1 row created.
+
+SQL>  select * from department;
+
+    DEPTNO DEPTNAME   LOCATION   DESIGNATIO
+---------- ---------- ---------- ----------
+         9 accounting hyderabad  manager
+        10 research   chennai    professor
+        11 sales      banglore   salesman
+        12 operations mumbai     operator
+         9 accounting chennai    manager
+
+
+SQL> select deptno,deptname from department group by deptno,deptname;
+
+    DEPTNO DEPTNAME
+---------- ----------
+         9 accounting
+        12 operations
+        10 research
+        11 sales
+
+SQL> update department set designation='accountant' where deptno=9;
+
+2 rows updated.
+
+SQL>  select * from department;
+
+    DEPTNO DEPTNAME   LOCATION   DESIGNATIO
+---------- ---------- ---------- ----------
+         9 accounting hyderabad  accountant
+        10 research   chennai    professor
+        11 sales      banglore   salesman
+        12 operations mumbai     operator
+         9 accounting chennai    accountant
+
+SQL> alter table department drop(designation);
+
+Table altered.
+
+SQL>  select * from department;
+
+    DEPTNO DEPTNAME   LOCATION
+---------- ---------- ----------
+         9 accounting hyderabad
+        10 research   chennai
+        11 sales      banglore
+        12 operations mumbai
+         9 accounting chennai
