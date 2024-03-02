@@ -1,0 +1,195 @@
+
+SQL> create table employee2(empno varchar2(20),emp_name varchar2(20),dept varchar(20),salary number,
+doj varchar2(20),branch varchar2(20));
+
+Table created.
+
+SQL>  insert into employee2 values('&empno','&emp_name','&dept',&salary,'&doj','&branch');
+
+Enter value for empno: e101
+Enter value for emp_name: amit
+Enter value for dept: production
+Enter value for salary: 45000
+Enter value for doj: 12-mar-00
+Enter value for branch: banglore
+old   1:  insert into employee2 values('&empno','&emp_name','&dept',&salary,'&doj','&branch')
+new   1:  insert into employee2 values('e101','amit','production',45000,'12-mar-00','banglore')
+
+1 row created.
+
+
+SQL> /
+Enter value for empno: 102
+Enter value for emp_name: amit
+Enter value for dept: HR
+Enter value for salary: 70000
+Enter value for doj: 
+Enter value for branch: 
+old   1:  insert into employee2 values('&empno','&emp_name','&dept',&salary,'&doj','&branch')
+new   1:  insert into employee2 values('102','amit','HR',70000,'','')
+
+1 row created.
+
+SQL> /
+Enter value for empno: e102
+Enter value for emp_name: amit
+Enter value for dept: HR
+Enter value for salary: 70000
+Enter value for doj: 03-jul-02
+Enter value for branch: banglore
+old   1:  insert into employee2 values('&empno','&emp_name','&dept',&salary,'&doj','&branch')
+new   1:  insert into employee2 values('e102','amit','HR',70000,'03-jul-02','banglore')
+
+1 row created.
+
+SQL> /
+Enter value for empno: e103
+Enter value for emp_name: sunita
+Enter value for dept: management
+Enter value for salary: 120000
+Enter value for doj: 11-jan-01
+Enter value for branch: mysore
+old   1:  insert into employee2 values('&empno','&emp_name','&dept',&salary,'&doj','&branch')
+new   1:  insert into employee2 values('e103','sunita','management',120000,'11-jan-01','mysore')
+
+1 row created.
+
+SQL> /
+Enter value for empno: e105
+Enter value for emp_name: sunita
+Enter value for dept: IT
+Enter value for salary: 67000
+Enter value for doj: 01-aug-01
+Enter value for branch: mysore
+old   1:  insert into employee2 values('&empno','&emp_name','&dept',&salary,'&doj','&branch')
+new   1:  insert into employee2 values('e105','sunita','IT',67000,'01-aug-01','mysore')
+
+1 row created.
+
+SQL> /
+Enter value for empno: e106
+Enter value for emp_name: mahesh
+Enter value for dept: civil
+Enter value for salary: 145000
+Enter value for doj: 20-sep-03
+Enter value for branch: mumbai
+old   1:  insert into employee2 values('&empno','&emp_name','&dept',&salary,'&doj','&branch')
+new   1:  insert into employee2 values('e106','mahesh','civil',145000,'20-sep-03','mumbai')
+
+1 row created.
+
+SQL> select * from employee2;
+
+EMPNO                EMP_NAME             DEPT                     SALARY
+-------------------- -------------------- -------------------- ----------
+DOJ                  BRANCH
+-------------------- --------------------
+e101                 amit                 production                45000
+12-mar-00            banglore
+
+102                  amit                 HR                        70000
+
+
+e102                 amit                 HR                        70000
+03-jul-02            banglore
+
+
+EMPNO                EMP_NAME             DEPT                     SALARY
+-------------------- -------------------- -------------------- ----------
+DOJ                  BRANCH
+-------------------- --------------------
+e103                 sunita               management               120000
+11-jan-01            mysore
+
+e105                 sunita               IT                        67000
+01-aug-01            mysore
+
+e106                 mahesh               civil                    145000
+20-sep-03            mumbai
+
+
+6 rows selected.
+
+SQL> select empno,salary from employee2;
+
+EMPNO                    SALARY
+-------------------- ----------
+e101                      45000
+102                       70000
+e102                      70000
+e103                     120000
+e105                      67000
+e106                     145000
+
+6 rows selected.
+
+SQL> delete from employee2 where empno='102';
+
+1 row deleted.
+
+SQL> select empno,salary from employee2;
+
+EMPNO                    SALARY
+-------------------- ----------
+e101                      45000
+e102                      70000
+e103                     120000
+e105                      67000
+e106                     145000
+
+SQL> select avg(salary) from employee2;
+
+AVG(SALARY)
+-----------
+      89400
+
+SQL> select count(*) from employee2;
+
+  COUNT(*)
+----------
+         5
+
+SQL> select count(distinct emp_name) from employee2;
+
+COUNT(DISTINCTEMP_NAME)
+-----------------------
+                      3
+
+SQL> select emp_name,sum(salary),count(*) from employee2 group by(emp_name);
+
+EMP_NAME             SUM(SALARY)   COUNT(*)
+-------------------- ----------- ----------
+amit                      115000          2
+mahesh                    145000          1
+sunita                    187000          2
+
+SQL> select emp_name,sum(salary) from employee2 group by(emp_name) having sum(salary) > 1200000;
+
+no rows selected
+
+SQL> select emp_name,sum(salary) from employee2 group by(emp_name) having sum(salary) > 120000;
+
+EMP_NAME             SUM(SALARY)
+-------------------- -----------
+mahesh                    145000
+sunita                    187000
+
+SQL> select emp_name from employee2 order by emp_name desc;
+
+EMP_NAME
+--------------------
+sunita
+sunita
+mahesh
+amit
+amit
+
+SQL> select * from employee2 where emp_name='amit' and salary>50000;
+
+EMPNO                EMP_NAME             DEPT                     SALARY
+-------------------- -------------------- -------------------- ----------
+DOJ                  BRANCH
+-------------------- --------------------
+e102                 amit                 HR                        70000
+03-jul-02            banglore
+
